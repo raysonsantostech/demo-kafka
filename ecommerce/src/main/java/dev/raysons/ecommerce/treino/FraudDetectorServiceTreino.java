@@ -3,6 +3,7 @@ package dev.raysons.ecommerce.treino;
 import java.time.Duration;
 import java.util.Collections;
 import java.util.Properties;
+import java.util.UUID;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -11,7 +12,7 @@ import org.apache.kafka.common.serialization.StringDeserializer;
 
 public class FraudDetectorServiceTreino {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         var consumer = new KafkaConsumer<String, String>(properties());
         consumer.subscribe(Collections.singleton("TREINO_ECOMMERCE_NEW_ORDER"));
 
@@ -32,6 +33,8 @@ public class FraudDetectorServiceTreino {
                 System.out.print("key: " + record.key() + "\t");
                 System.out.print("value: " + record.value() + "\t");
                 System.out.println();
+
+                Thread.sleep(Duration.ofSeconds(1));
             }    
         }
     }
@@ -42,6 +45,11 @@ public class FraudDetectorServiceTreino {
         properties.setProperty(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         properties.setProperty(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         properties.setProperty(ConsumerConfig.GROUP_ID_CONFIG, FraudDetectorServiceTreino.class.getSimpleName());
+        //  NOME DO CONSUMIDOR
+        properties.setProperty(ConsumerConfig.CLIENT_ID_CONFIG, "MEU_CONSUMIDOR_" + FraudDetectorServiceTreino.class.getSimpleName() + "_" + UUID.randomUUID().toString());
+
+        // PROCESSO E JÁ INFORMO AO KAFKA QUE PROCESSEI: COMMITANDO
+        properties.setProperty(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, "1");
 
         return properties;
     }
