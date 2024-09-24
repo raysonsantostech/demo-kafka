@@ -29,13 +29,14 @@ public class NewOrderMainTreino {
 
         var producer = new KafkaProducer<String, String>(properties());
 
-        for (int i = 0; i < 2000; i++) {
-            var value = UUID.randomUUID().toString() + ", 445, 4445";
-            var record = new ProducerRecord<String, String>("TREINO_ECOMMERCE_NEW_ORDER", value, value);
+        for (int i = 0; i < 200; i++) {
+            var key = UUID.randomUUID().toString();
+            var value = key + ", 445, 4445";
+            var record = new ProducerRecord<String, String>("TREINO_ECOMMERCE_NEW_ORDER", key, value);
             producer.send(record, callback).get();
             
-            var email = "email, Thanks! We are processing your things.";
-            var emailRecord = new ProducerRecord<String, String>("TREINO_ECOMMERCE_SEND_EMAIL", email, email);
+            var email = key + "email, Thanks! We are processing your things.";
+            var emailRecord = new ProducerRecord<String, String>("TREINO_ECOMMERCE_SEND_EMAIL", key, email);
             producer.send(emailRecord, callback).get();
         }
 
