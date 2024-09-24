@@ -8,18 +8,17 @@ import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.serialization.StringDeserializer;
 
-public class KafkaService {
+public class KafkaServiceTreino {
     private KafkaConsumer<String, String> consumer;
-    private ConsumerFunctional parser;
+    private ConsumerFunctionTreino parser;
 
-    public KafkaService(String topic, ConsumerFunctional parser, String groupId) {
+    public KafkaServiceTreino(String groupId, String topic, ConsumerFunctionTreino parser) {
         this.consumer = new KafkaConsumer<String, String>(properties(groupId));
         this.parser = parser;
         this.consumer.subscribe(Collections.singletonList(topic));
-        run();
     }
 
-    private void run() {
+    public void run() {
         while (true) {
             var records = this.consumer.poll(Duration.ofMillis(100));
 
