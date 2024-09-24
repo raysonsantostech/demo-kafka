@@ -1,4 +1,4 @@
-package dev.raysons.ecommerce;
+package dev.raysons.ecommerce.aula;
 
 import java.util.Properties;
 import java.util.concurrent.ExecutionException;

@@ -1,4 +1,4 @@
-package dev.raysons.ecommerce;
+package dev.raysons.ecommerce.aula;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
