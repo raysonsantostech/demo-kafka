@@ -9,8 +9,8 @@ import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.serialization.StringDeserializer;
 
 public class KafkaServiceTreino {
-    private KafkaConsumer<String, String> consumer;
-    private ConsumerFunctionTreino parser;
+    private final KafkaConsumer<String, String> consumer;
+    private final ConsumerFunctionTreino parser;
 
     public KafkaServiceTreino(String groupId, String topic, ConsumerFunctionTreino parser) {
         this.consumer = new KafkaConsumer<String, String>(properties(groupId));
