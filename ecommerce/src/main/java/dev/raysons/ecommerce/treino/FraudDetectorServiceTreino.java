@@ -11,8 +11,9 @@ public class FraudDetectorServiceTreino {
 
     public static void main(String[] args) throws InterruptedException {
         var fraudDetectorService = new FraudDetectorServiceTreino();
-        var service = new KafkaServiceTreino(FraudDetectorService.class.getSimpleName(), "TREINO_ECOMMERCE_NEW_ORDER", fraudDetectorService::parser);
-        service.run();
+        try (var service = new KafkaServiceTreino(FraudDetectorService.class.getSimpleName(), "TREINO_ECOMMERCE_NEW_ORDER", fraudDetectorService::parser)) {
+            service.run();
+        }
     }
 
     private void parser(ConsumerRecord<String, String> record) {

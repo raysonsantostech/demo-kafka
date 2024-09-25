@@ -1,5 +1,6 @@
 package dev.raysons.ecommerce.treino.kafka;
 
+import java.io.Closeable;
 import java.text.MessageFormat;
 import java.util.Properties;
 import java.util.concurrent.ExecutionException;
@@ -10,7 +11,7 @@ import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.serialization.StringSerializer;
 
-public class KafkaDispatcher {
+public class KafkaDispatcher implements Closeable {
 
     private final KafkaProducer<String, String> producer;
 
@@ -42,6 +43,11 @@ public class KafkaDispatcher {
         properties.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         properties.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         return properties;
+    }
+
+    @Override
+    public void close() {
+        this.producer.close();
     }
     
 }

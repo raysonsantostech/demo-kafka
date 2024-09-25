@@ -17,7 +17,8 @@ public class EmailServiceTreino {
             System.out.println(message);
         };
 
-        var service = new KafkaServiceTreino(EmailServiceTreino.class.getSimpleName(), "TREINO_ECOMMERCE_SEND_EMAIL", parser);
-        service.run();
+        try(var service = new KafkaServiceTreino(EmailServiceTreino.class.getSimpleName(), "TREINO_ECOMMERCE_SEND_EMAIL", parser)) {
+            service.run();
+        }
     }
 }

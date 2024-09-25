@@ -1,5 +1,6 @@
 package dev.raysons.ecommerce.treino.kafka;
 
+import java.io.Closeable;
 import java.time.Duration;
 import java.util.Collections;
 import java.util.Properties;
@@ -8,7 +9,7 @@ import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.serialization.StringDeserializer;
 
-public class KafkaServiceTreino {
+public class KafkaServiceTreino implements Closeable {
     private final KafkaConsumer<String, String> consumer;
     private final ConsumerFunctionTreino parser;
 
@@ -40,6 +41,11 @@ public class KafkaServiceTreino {
         properties.setProperty(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, "1");
 
         return properties;
+    }
+
+    @Override
+    public void close() {
+        this.consumer.close();
     }
 
 }
