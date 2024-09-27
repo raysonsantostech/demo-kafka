@@ -12,7 +12,7 @@ public class NewOrderMainTreino {
     public static void main(String[] args) throws InterruptedException, ExecutionException {
 
         try(var orderDispatcher = new KafkaDispatcher<Order>()) {
-            for (int i = 0; i < 20; i++) {
+            for (int i = 0; i < 2000; i++) {
                 var key = UUID.randomUUID().toString();
                 var userId = UUID.randomUUID().toString();
                 var orderId = UUID.randomUUID().toString();
@@ -25,7 +25,7 @@ public class NewOrderMainTreino {
 
         
         try(var emailDispatcher = new KafkaDispatcher<String>()) {
-            for (int i = 0; i < 20; i++) {
+            for (int i = 0; i < 2000; i++) {
                 var key = UUID.randomUUID().toString();
                 var email = "email, Thanks! We are processing your things.";
 

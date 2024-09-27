@@ -1,8 +1,11 @@
 package dev.raysons.ecommerce.treino;
 
 import java.util.regex.Pattern;
+import java.util.Map;
 
+import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.apache.kafka.common.serialization.StringDeserializer;
 
 import dev.raysons.ecommerce.treino.kafka.KafkaServiceTreino;
 
@@ -10,7 +13,8 @@ public class LogService {
 
     public static void main(String[] args) {
         var logService = new LogService();
-        try(var service = new KafkaServiceTreino(LogService.class.getSimpleName(), Pattern.compile(".*ECOMMERCE.*"), logService::parser)) {
+        try(var service = new KafkaServiceTreino<String>(LogService.class.getSimpleName(), Pattern.compile(".*ECOMMERCE.*"), 
+        logService::parser, String.class, Map.of(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName()))) {
             service.run();
         }
     }
