@@ -4,6 +4,7 @@ import java.io.Closeable;
 import java.time.Duration;
 import java.util.Collections;
 import java.util.Properties;
+import java.util.regex.Pattern;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
@@ -14,9 +15,18 @@ public class KafkaServiceTreino implements Closeable {
     private final ConsumerFunctionTreino parser;
 
     public KafkaServiceTreino(String groupId, String topic, ConsumerFunctionTreino parser) {
+        this(groupId, parser);
+        this.consumer.subscribe(Collections.singletonList(topic));
+    }
+
+    public KafkaServiceTreino(String groupId, Pattern topic, ConsumerFunctionTreino parser) {
+        this(groupId, parser);
+        this.consumer.subscribe(topic);
+    }
+
+    private KafkaServiceTreino(String groupId, ConsumerFunctionTreino parser) {
         this.consumer = new KafkaConsumer<String, String>(properties(groupId));
         this.parser = parser;
-        this.consumer.subscribe(Collections.singletonList(topic));
     }
 
     public void run() {
