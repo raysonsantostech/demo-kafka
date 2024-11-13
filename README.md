@@ -3,7 +3,11 @@
 ## Criação do Projeto
 
 ```bash
-mvn archetype:generate -DgroupId=dev.raysons.ecommerce -DartifactId=ecommerce -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
+mvn archetype:generate -DgroupId=dev.raysons -DartifactId=ecommerce -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
+
+mvn archetype:generate -DgroupId=dev.raysons -DartifactId=service-email  -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
+
+
 ```
 
 ```xml
