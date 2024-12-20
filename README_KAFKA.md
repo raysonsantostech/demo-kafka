@@ -1,4 +1,7 @@
 # Execução do Zookeeper
+
+tools/kafka_2.12-3.8.0/bin
+
 > bin/zookeeper-server-start.sh config/zookeeper.properties 
 
 # Execução Kafka Server
